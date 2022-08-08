@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('DohaQadi-Access-key-ID')
         AWS_SECRET_ACCESS_KEY = credentials('DohaQadi-Secret-access-key')
-        ARTIFACT_NAME = 'springclinic.jar'
+        ARTIFACT_NAME = 'samplejava.jar'
         AWS_S3_BUCKET = 'dohaqadi-belt2d2-artifacts-123456'
         AWS_EB_APP_NAME = 'DohaQadi-jenkins-EB'
         AWS_EB_ENVIRONMENT = 'Dohaqadijenkinseb-env'
@@ -64,22 +64,18 @@ pipeline {
               post {
                 success {
                     archiveArtifacts artifacts: '**/target/**.jar', followSymlinks: false
-                    }
+                    sh 'aws configure set region us-east-1'
+                    sh 'aws s3 cp ./target/**.jar s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
+                }
             }
         }
         
-         
-       stage('Publish') {
+        stage('Deploy') {
             steps {
-                sh 'aws configure set region us-east-1'
-                sh 'aws s3 cp ./target/**.jar s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
+
                 sh 'aws elasticbeanstalk create-application-version --application-name $AWS_EB_APP_NAME --version-label $AWS_EB_APP_VERSION --source-bundle S3Bucket=$AWS_S3_BUCKET,S3Key=$ARTIFACT_NAME'
+
                 sh 'aws elasticbeanstalk update-environment --application-name $AWS_EB_APP_NAME --environment-name $AWS_EB_ENVIRONMENT --version-label $AWS_EB_APP_VERSION'
-            }
-            post {
-                success {
-                    echo 'success Jenkinsfile-EBS3'
-                }
             }
         }
     }
