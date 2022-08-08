@@ -6,7 +6,7 @@ pipeline {
         ARTIFACT_NAME = 'springclinic.jar'
         AWS_S3_BUCKET = 'dohaqadi-belt2d2-artifacts-123456'
         AWS_EB_APP_NAME = 'DohaQadi-jenkins-EB'
-        AWS_EB_ENVIRONMENT = 'Dohaqadijenkinseb-env-1'
+        AWS_EB_ENVIRONMENT = 'Dohaqadijenkinseb-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
@@ -79,8 +79,6 @@ pipeline {
             post {
                 success {
                     echo 'success Jenkinsfile-EBS3'
-                    // bat 'aws configure set region us-east-1'
-                    // bat 'aws s3 cp ./target/calculator-0.0.1-SNAPSHOT.jar s3://YOUR-BUCKET-NAME/calculator.jar'
                 }
             }
         }
