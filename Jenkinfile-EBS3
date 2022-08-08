@@ -5,8 +5,8 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('DohaQadi-Secret-access-key')
         ARTIFACT_NAME = 'samplejava.jar'
         AWS_S3_BUCKET = 'dohaqadi-belt2d2-artifacts-123456'
-        AWS_EB_APP_NAME = 'DohaQadi-jenkins-EB'
-        AWS_EB_ENVIRONMENT = 'Dohaqadijenkinseb-env'
+        AWS_EB_APP_NAME = 'Sample-java-CICD'
+        AWS_EB_ENVIRONMENT = 'Samplejavacicd-env'
         AWS_EB_APP_VERSION = "${BUILD_ID}"
     } 
     stages {
