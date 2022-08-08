@@ -2,19 +2,23 @@ version: 0.2
 
 phases:
   install:
+    on-failure: ABORT
     runtime-versions:
       java: corretto11
   pre_build:
+    on-failure: ABORT
     commands:
     - mvn clean
     - mvn validate
     - echo Pre-build completed on 'data'
   build:
+    on-failure: ABORT
     commands:
     - echo Build completed on date
     - mvn compile
     - mvn test
   post_build:
+    on-failure: ABORT
     commands:
     - echo Build completed on date
     - mvn package
@@ -22,3 +26,5 @@ phases:
 artifacts:
   files:
   - ROOT.jar
+  name: sample-java-artifact
+  
