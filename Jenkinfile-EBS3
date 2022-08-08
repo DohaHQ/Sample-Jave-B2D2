@@ -67,11 +67,11 @@ pipeline {
                 success {
                     archiveArtifacts artifacts: '**/target/**.jar', followSymlinks: false
                     sh 'aws configure set region us-east-1'
-                    sh 'aws s3 cp ./target/samplejava-2.3.1.BUILD-SNAPSHOT.jar s3://jenkins-store/samplejava.jar'
+                    sh 'aws s3 cp ./target/**.jar s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
                 }
             }
         }
-
+        
         stage('Deploy') {
             steps {
 
