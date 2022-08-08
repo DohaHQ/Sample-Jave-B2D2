@@ -3,7 +3,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('DohaQadi-Access-key-ID')
         AWS_SECRET_ACCESS_KEY = credentials('DohaQadi-Secret-access-key')
-        ARTIFACT_NAME = 'samplejava.jar'
+        ARTIFACT_NAME = 'samplejava.war'
         AWS_S3_BUCKET = 'dohaqadi-belt2d2-artifacts-123456'
         AWS_EB_APP_NAME = 'DohaQadi-jenkins-EB'
         AWS_EB_ENVIRONMENT = 'Dohaqadijenkinseb-env'
@@ -65,9 +65,9 @@ pipeline {
             }
               post {
                 success {
-                    archiveArtifacts artifacts: '**/target/**.jar', followSymlinks: false
+                    archiveArtifacts artifacts: '**/target/**.war', followSymlinks: false
                     sh 'aws configure set region us-east-1'
-                    sh 'aws s3 cp ./target/**.jar s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
+                    sh 'aws s3 cp ./target/**.war s3://$AWS_S3_BUCKET/$ARTIFACT_NAME'
                 }
             }
         }
