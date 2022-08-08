@@ -18,7 +18,7 @@ phases:
     commands:
     - echo Build completed on date
     - mvn package
-    - cp target/samplejava.jar ROOT.jar
+    - cp target/*.jar ROOT.jar
 artifacts:
   files:
   - ROOT.jar
