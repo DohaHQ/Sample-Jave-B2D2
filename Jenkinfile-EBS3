@@ -11,21 +11,7 @@ pipeline {
     } 
     stages {
 
-        stage('Quality Scan') {
-            steps {
-               
-            sh "mvn -Dmaven.test.failure.ignore=true clean compile"
-               
-            sh "mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=convention---online-onsite-DohaQadi-B2D2 \
-  -Dsonar.host.url=http://52.23.193.18 \
-  -Dsonar.login=sqp_658254faa5fe2e60ad81c3aa699cacbd762455b4"
-
-               
-            }
-            
-        }
-
+        
         stage('Validate') {
             steps {
                 
